@@ -1,49 +1,25 @@
-// import axios from "axios";
-// import { createContext, useState } from "react";
-
-// export const DataContext = createContext(null);
-// export const DataProvider = ({ children }) => {
-//   const [data, setData] = useState();
-
-//   // fetching all products from api
-//   const fetchAllProducts = async () => {
-//     try {
-//       const res = await axios.get(
-//         "https://fakestoreapi.in/api/products?limit=150"
-//       );
-//       console.log(res);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   return (
-//     <DataContext.Provider value={{ data, setData, fetchAllProducts }}>
-//       {children}
-//     </DataContext.Provider>
-//   );
-// };
-import { createContext, useState } from "react";
-import { useContext } from "react";
+import { createContext, useState, useContext } from "react";
 import axios from "axios";
 
-export const DataContext = createContext(null); // ✅ this must match
+// Create the context
+export const DataContext = createContext(null);
 
+// Data provider component
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
 
+  // Fetch all products
   const fetchAllProducts = async () => {
     try {
-      const res = await axios.get(
-        "https://fakestoreapi.in/api/products?limit=150%"
-      );
-      console.log("fetched products", res.data.products);
-      if (Array.isArray(res.data.products)) {
-        setData(res.data.products);
+      const res = await axios.get("https://fakestoreapi.com/products");
+
+      // res.data is directly an array
+      if (Array.isArray(res.data)) {
+        setData(res.data);
       } else {
         console.warn("API returned non-array data:", res.data);
         setData([]);
       }
-      // ✅ don't forget this!
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }
@@ -55,4 +31,6 @@ export const DataProvider = ({ children }) => {
     </DataContext.Provider>
   );
 };
+
+// Custom hook for easier usage
 export const useData = () => useContext(DataContext);

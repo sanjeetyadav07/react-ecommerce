@@ -14,7 +14,7 @@ const SingleProduct = () => {
   const getSingleProduct = async () => {
     try {
       const res = await axios.get(
-        `https://fakestoreapi.in/api/products/${params.id}`
+        `https://fakestoreapi.com/products/${params.id}`
       );
       const product = res.data.product;
       setSingleProduct(product);
@@ -26,7 +26,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     getSingleProduct();
-  }, []);
+  }, [id]);
 
   const OriginalPrice = SingleProduct
     ? Math.round(

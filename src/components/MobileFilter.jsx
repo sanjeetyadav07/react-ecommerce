@@ -1,12 +1,3 @@
-// import React from 'react'
-
-// const MobileFilter = () => {
-//   return (
-//     <div>MobileFilter</div>
-//   )
-// }
-
-// export default MobileFilter
 import React, { useContext } from "react";
 import { FaFilter } from "react-icons/fa6";
 import { DataContext } from "../context/DataContext";
